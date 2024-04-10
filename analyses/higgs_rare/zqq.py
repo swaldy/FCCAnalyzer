@@ -195,7 +195,7 @@ def build_graph(df, dataset):
     results.append(df_quarks.Histo1D(("quarks_h_p_nOne", "", *bins_m), "h_dijet_p"))
     
     # filter on Z momentum
-    df_quarks = df_quarks.Filter("z_dijet_p > 35 && z_dijet_p < 56")
+    df_quarks = df_quarks.Filter("z_dijet_p > 30 && z_dijet_p < 65")
     results.append(df_quarks.Histo1D(("cutFlow_bb", "", *bins_count), "cut2"))
     results.append(df_quarks.Histo1D(("cutFlow_cc", "", *bins_count), "cut2"))
     results.append(df_quarks.Histo1D(("cutFlow_ss", "", *bins_count), "cut2"))
