@@ -299,7 +299,7 @@ def build_graph(df, dataset):
     df_ss = df_quarks.Filter("best_tag == 2 && Zss_prob > 1.2")
     df_uu = df_quarks.Filter("best_tag == 3 && Zuu_prob > 1.1")
     df_dd = df_quarks.Filter("best_tag == 3 && Zdd_prob > 1.1")
-    df_tautau = df_quarks.Filter("best_tag == 4 && Ztautau_prob > 2*0.5")
+    df_tautau = df_quarks.Filter("best_tag == 4 && Ztautau_prob > 2*0.1")
     
     results.append(df_bb.Histo1D(("cutFlow_bb", "", *bins_count), "cut5"))
     results.append(df_cc.Histo1D(("cutFlow_cc", "", *bins_count), "cut5"))
