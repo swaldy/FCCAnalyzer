@@ -55,7 +55,7 @@ bins_pfcand = (200, -10, 10)
 #Load in the the jet clustering and the jet flavor tagging
 jet4Cluster = helper_jetclustering.ExclusiveJetClusteringHelper(4, collection="ReconstructedParticles")
 jet4Flavour = helper_flavourtagger.JetFlavourHelper(jet4Cluster.jets, jet4Cluster.constituents)
-path = "/home/submit/swaldy/FCCAnalyzer/data/flavourtagger/fccee_flavtagging_edm4hep_wc_v1"
+path = "/home/submit/swaldy/FCCAnalyzer/data/flavourtagger/fccee_flavtagging_edm4hep_wc_v2"
 jet4Flavour.load(f"{path}.json", f"{path}.onnx")
 
 
