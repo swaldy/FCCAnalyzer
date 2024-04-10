@@ -252,8 +252,8 @@ def build_graph(df, dataset):
     df_quarks = df_quarks.Define("Zqq_prob2", "recojet_isQ[zh_min_idx[1]]")
     df_quarks = df_quarks.Define("Zqq_prob", "Zqq_prob1 + Zqq_prob2")
     
-    df_quarks = df_quarks.Define("Ztautau_prob1", "recojet_isT[zh_min_idx[0]]")
-    df_quarks = df_quarks.Define("Ztautau_prob2", "recojet_isT[zh_min_idx[1]]")
+    df_quarks = df_quarks.Define("Ztautau_prob1", "recojet_isTAU[zh_min_idx[0]]")
+    df_quarks = df_quarks.Define("Ztautau_prob2", "recojet_isTAU[zh_min_idx[1]]")
     df_quarks = df_quarks.Define("Ztautau_prob", "Ztautau_prob1 + Ztautau_prob2")
     
     results.append(df_quarks.Graph("Zbb_prob1", "Zbb_prob2"))
