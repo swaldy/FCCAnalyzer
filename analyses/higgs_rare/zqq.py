@@ -127,8 +127,11 @@ def build_graph(df, dataset):
     #########
     ### CUT 0: all events
     #########
+    results.append(df.Histo1D(("cutFlow_mumu", "", *bins_count), "cut0"))
+    results.append(df.Histo1D(("cutFlow_ee", "", *bins_count), "cut0"))
+    results.append(df.Histo1D(("cutFlow_nunu", "", *bins_count), "cut0"))
     results.append(df.Histo1D(("cutFlow_uu", "", *bins_count), "cut0"))
-    results.append(df.Histo1D(("cutFlow_uu", "", *bins_count), "cut0"))
+    results.append(df.Histo1D(("cutFlow_dd", "", *bins_count), "cut0"))
     results.append(df.Histo1D(("cutFlow_ss", "", *bins_count), "cut0"))
     results.append(df.Histo1D(("cutFlow_cc", "", *bins_count), "cut0"))
     results.append(df.Histo1D(("cutFlow_bb", "", *bins_count), "cut0"))
@@ -141,14 +144,27 @@ def build_graph(df, dataset):
     df = df.Define("missingEnergy", "missingEnergy_rp[0].energy")
     results.append(df.Histo1D(("missingEnergy_nOne", "", *missEnergy), "missingEnergy"))
     
-    df_quarks   = df.Filter("muons_no == 0 && electrons_no == 0 && missingEnergy < 20 && missingEnergy > 90")
+    #select_mumu = "muons_no == 2 && electrons_no == 0 && missingEnergy < 30"
+    #select_ee   = "muons_no == 0 && electrons_no == 2 && missingEnergy < 30"
+    #select_nunu = "muons_no == 0 && electrons_no == 0 && missingEnergy > 102 && missingEnergy < 110"
+    select_qq   = "muons_no == 0 && electrons_no == 0 && missingEnergy < 35"
+    select_tautau =  "muons_no == 0 && electrons_no == 0 && missingEnergy > 20 && missingEnergy < 90"
     
+    #df_mumu   = df.Filter(select_mumu)
+    #df_ee     = df.Filter(select_ee)
+    #df_nunu   = df.Filter(select_nunu)
+    df_quarks = df.Filter(select_qq)
+    df_tau    = df.Filter(select_tautau)
+    
+    #results.append(df_mumu.Histo1D(("cutFlow_mumu", "", *bins_count), "cut1"))
+    #results.append(df_ee.Histo1D(("cutFlow_ee", "", *bins_count), "cut1"))
+    #results.append(df_nunu.Histo1D(("cutFlow_nunu", "", *bins_count), "cut1"))
     results.append(df_quarks.Histo1D(("cutFlow_bb", "", *bins_count), "cut1"))
     results.append(df_quarks.Histo1D(("cutFlow_cc", "", *bins_count), "cut1"))
     results.append(df_quarks.Histo1D(("cutFlow_ss", "", *bins_count), "cut1"))
     results.append(df_quarks.Histo1D(("cutFlow_uu", "", *bins_count), "cut1"))
     results.append(df_quarks.Histo1D(("cutFlow_dd", "", *bins_count), "cut1"))
-    results.append(df_quarks.Histo1D(("cutFlow_tautau", "", *bins_count), "cut1"))
+    results.append(df_tau.Histo1D(("cutFlow_tautau", "", *bins_count), "cut1")
     
     #########
     ### CUT 2: Define 4 jets
@@ -201,20 +217,20 @@ def build_graph(df, dataset):
     results.append(df_quarks.Histo1D(("cutFlow_ss", "", *bins_count), "cut2"))
     results.append(df_quarks.Histo1D(("cutFlow_uu", "", *bins_count), "cut2"))
     results.append(df_quarks.Histo1D(("cutFlow_dd", "", *bins_count), "cut2"))
-    results.append(df_quarks.Histo1D(("cutFlow_tautau", "", *bins_count), "cut2"))
+    #results.append(df_quarks.Histo1D(("cutFlow_tautau", "", *bins_count), "cut2"))
     
     #########
     ### CUT 3: Higgs mass reconstruction
     #########
     
     # filter on H mass
-    df_quarks = df_quarks.Filter("h_dijet_m > 115 && h_dijet_m < 128")
+    df_quarks = df_quarks.Filter("h_dijet_m > 100 && h_dijet_m < 150")
     results.append(df_quarks.Histo1D(("cutFlow_bb", "", *bins_count), "cut3"))
     results.append(df_quarks.Histo1D(("cutFlow_cc", "", *bins_count), "cut3"))
     results.append(df_quarks.Histo1D(("cutFlow_ss", "", *bins_count), "cut3"))
     results.append(df_quarks.Histo1D(("cutFlow_uu", "", *bins_count), "cut3"))
     results.append(df_quarks.Histo1D(("cutFlow_dd", "", *bins_count), "cut3"))
-    results.append(df_quarks.Histo1D(("cutFlow_tautau", "", *bins_count), "cut3"))
+    results.append(df_quarks.Histo1D(("cutFlow_tautau", "", *bins_count), "cut2"))
     
     ########
     ### CUT 4: flavor tag
@@ -238,7 +254,7 @@ def build_graph(df, dataset):
     results.append(df_quarks.Histo1D(("cutFlow_ss", "", *bins_count), "cut4"))
     results.append(df_quarks.Histo1D(("cutFlow_uu", "", *bins_count), "cut4"))
     results.append(df_quarks.Histo1D(("cutFlow_dd", "", *bins_count), "cut4"))
-    results.append(df_quarks.Histo1D(("cutFlow_tautau", "", *bins_count), "cut4"))
+    results.append(df_quarks.Histo1D(("cutFlow_tautau", "", *bins_count), "cut3"))
     
     # sort by tag
     df_quarks = df_quarks.Define("Zbb_prob1", "recojet_isB[zh_min_idx[0]]")
@@ -306,7 +322,7 @@ def build_graph(df, dataset):
     results.append(df_ss.Histo1D(("cutFlow_ss", "", *bins_count), "cut5"))
     results.append(df_uu.Histo1D(("cutFlow_uu", "", *bins_count), "cut5"))
     results.append(df_dd.Histo1D(("cutFlow_dd", "", *bins_count), "cut5"))
-    results.append(df_tautau.Histo1D(("cutFlow_tautau", "", *bins_count), "cut5"))
+    results.append(df_tautau.Histo1D(("cutFlow_tautau", "", *bins_count), "cut4"))
     
     
     # make final mass and momentum histograms
