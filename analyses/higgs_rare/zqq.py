@@ -141,7 +141,7 @@ def build_graph(df, dataset):
     df = df.Define("missingEnergy", "missingEnergy_rp[0].energy")
     results.append(df.Histo1D(("missingEnergy_nOne", "", *missEnergy), "missingEnergy"))
     
-    df_quarks   = df.Filter("muons_no == 0 && electrons_no == 0 && missingEnergy < 35")
+    df_quarks   = df.Filter("muons_no == 0 && electrons_no == 0 && missingEnergy < 20 && missingEnergy > 90")
     
     results.append(df_quarks.Histo1D(("cutFlow_bb", "", *bins_count), "cut1"))
     results.append(df_quarks.Histo1D(("cutFlow_cc", "", *bins_count), "cut1"))
