@@ -127,7 +127,8 @@ def build_graph(df, dataset):
     #########
     ### CUT 0: all events
     #########
-    results.append(df.Histo1D(("cutFlow_qq", "", *bins_count), "cut0"))
+    results.append(df.Histo1D(("cutFlow_uu", "", *bins_count), "cut0"))
+    results.append(df.Histo1D(("cutFlow_uu", "", *bins_count), "cut0"))
     results.append(df.Histo1D(("cutFlow_ss", "", *bins_count), "cut0"))
     results.append(df.Histo1D(("cutFlow_cc", "", *bins_count), "cut0"))
     results.append(df.Histo1D(("cutFlow_bb", "", *bins_count), "cut0"))
@@ -145,7 +146,8 @@ def build_graph(df, dataset):
     results.append(df_quarks.Histo1D(("cutFlow_bb", "", *bins_count), "cut1"))
     results.append(df_quarks.Histo1D(("cutFlow_cc", "", *bins_count), "cut1"))
     results.append(df_quarks.Histo1D(("cutFlow_ss", "", *bins_count), "cut1"))
-    results.append(df_quarks.Histo1D(("cutFlow_qq", "", *bins_count), "cut1"))
+    results.append(df_quarks.Histo1D(("cutFlow_uu", "", *bins_count), "cut1"))
+    results.append(df_quarks.Histo1D(("cutFlow_dd", "", *bins_count), "cut1"))
     results.append(df_quarks.Histo1D(("cutFlow_tautau", "", *bins_count), "cut1"))
     
     #########
@@ -197,7 +199,8 @@ def build_graph(df, dataset):
     results.append(df_quarks.Histo1D(("cutFlow_bb", "", *bins_count), "cut2"))
     results.append(df_quarks.Histo1D(("cutFlow_cc", "", *bins_count), "cut2"))
     results.append(df_quarks.Histo1D(("cutFlow_ss", "", *bins_count), "cut2"))
-    results.append(df_quarks.Histo1D(("cutFlow_qq", "", *bins_count), "cut2"))
+    results.append(df_quarks.Histo1D(("cutFlow_uu", "", *bins_count), "cut2"))
+    results.append(df_quarks.Histo1D(("cutFlow_dd", "", *bins_count), "cut2"))
     results.append(df_quarks.Histo1D(("cutFlow_tautau", "", *bins_count), "cut2"))
     
     #########
@@ -209,7 +212,8 @@ def build_graph(df, dataset):
     results.append(df_quarks.Histo1D(("cutFlow_bb", "", *bins_count), "cut3"))
     results.append(df_quarks.Histo1D(("cutFlow_cc", "", *bins_count), "cut3"))
     results.append(df_quarks.Histo1D(("cutFlow_ss", "", *bins_count), "cut3"))
-    results.append(df_quarks.Histo1D(("cutFlow_qq", "", *bins_count), "cut3"))
+    results.append(df_quarks.Histo1D(("cutFlow_uu", "", *bins_count), "cut3"))
+    results.append(df_quarks.Histo1D(("cutFlow_dd", "", *bins_count), "cut3"))
     results.append(df_quarks.Histo1D(("cutFlow_tautau", "", *bins_count), "cut3"))
     
     ########
@@ -232,7 +236,8 @@ def build_graph(df, dataset):
     results.append(df_quarks.Histo1D(("cutFlow_bb", "", *bins_count), "cut4"))
     results.append(df_quarks.Histo1D(("cutFlow_cc", "", *bins_count), "cut4"))
     results.append(df_quarks.Histo1D(("cutFlow_ss", "", *bins_count), "cut4"))
-    results.append(df_quarks.Histo1D(("cutFlow_qq", "", *bins_count), "cut4"))
+    results.append(df_quarks.Histo1D(("cutFlow_uu", "", *bins_count), "cut4"))
+    results.append(df_quarks.Histo1D(("cutFlow_dd", "", *bins_count), "cut4"))
     results.append(df_quarks.Histo1D(("cutFlow_tautau", "", *bins_count), "cut4"))
     
     # sort by tag
@@ -248,9 +253,13 @@ def build_graph(df, dataset):
     df_quarks = df_quarks.Define("Zss_prob2", "recojet_isS[zh_min_idx[1]]")
     df_quarks = df_quarks.Define("Zss_prob", "Zss_prob1 + Zss_prob2")
     
-    df_quarks = df_quarks.Define("Zqq_prob1", "recojet_isQ[zh_min_idx[0]]")
-    df_quarks = df_quarks.Define("Zqq_prob2", "recojet_isQ[zh_min_idx[1]]")
-    df_quarks = df_quarks.Define("Zqq_prob", "Zqq_prob1 + Zqq_prob2")
+    df_quarks = df_quarks.Define("Zuu_prob1", "recojet_isU[zh_min_idx[0]]")
+    df_quarks = df_quarks.Define("Zuu_prob2", "recojet_isU[zh_min_idx[1]]")
+    df_quarks = df_quarks.Define("Zuu_prob", "Zuu_prob1 + Zuu_prob2")
+
+    df_quarks = df_quarks.Define("Zdd_prob1", "recojet_isD[zh_min_idx[0]]")
+    df_quarks = df_quarks.Define("Zdd_prob2", "recojet_isD[zh_min_idx[1]]")
+    df_quarks = df_quarks.Define("Zdd_prob", "Zdd_prob1 + Zdd_prob2")
     
     df_quarks = df_quarks.Define("Ztautau_prob1", "recojet_isTAU[zh_min_idx[0]]")
     df_quarks = df_quarks.Define("Ztautau_prob2", "recojet_isTAU[zh_min_idx[1]]")
@@ -259,43 +268,49 @@ def build_graph(df, dataset):
     results.append(df_quarks.Graph("Zbb_prob1", "Zbb_prob2"))
     results.append(df_quarks.Graph("Zcc_prob1", "Zcc_prob2"))
     results.append(df_quarks.Graph("Zss_prob1", "Zss_prob2"))
-    results.append(df_quarks.Graph("Zqq_prob1", "Zqq_prob2"))
+    results.append(df_quarks.Graph("Zuu_prob1", "Zuu_prob2"))
+    results.append(df_quarks.Graph("Zdd_prob1", "Zdd_prob2"))
     results.append(df_quarks.Graph("Ztautau_prob1", "Ztautau_prob2"))
     
     results.append(df_quarks.Histo1D(("Zbb_prob_nOne", "", *bins_prob), "Zbb_prob"))
     results.append(df_quarks.Histo1D(("Zcc_prob_nOne", "", *bins_prob), "Zcc_prob"))
     results.append(df_quarks.Histo1D(("Zss_prob_nOne", "", *bins_prob), "Zss_prob"))
-    results.append(df_quarks.Histo1D(("Zqq_prob_nOne", "", *bins_prob), "Zqq_prob"))
+    results.append(df_quarks.Histo1D(("Zuu_prob_nOne", "", *bins_prob), "Zuu_prob"))
+    results.append(df_quarks.Histo1D(("Zdd_prob_nOne", "", *bins_prob), "Zdd_prob"))
     results.append(df_quarks.Histo1D(("Ztautau_prob_nOne", "", *bins_prob), "Ztautau_prob"))
     
     df_quarks = df_quarks.Define("best_tag", """
-            if (Zbb_prob > Zcc_prob && Zbb_prob > Zss_prob && Zbb_prob > Zqq_prob && Zbb_prob > Ztautau_prob) {
+            if (Zbb_prob > Zcc_prob && Zbb_prob > Zss_prob && Zbb_prob > Zuu_prob && Zbb_prob > Zdd_prob && Zbb_prob > Ztautau_prob) {
                 return 0;
-            } else if (Zcc_prob > Zss_prob && Zcc_prob > Zqq_prob > Ztautau_prob) {
+            } else if (Zcc_prob > Zss_prob && Zcc_prob > Zuu_prob > Zdd_prob > Ztautau_prob) {
                 return 1;
-            } else if (Zss_prob > Zqq_prob > Ztautau_prob) {
+            } else if (Zss_prob > Zuu_prob > Zdd_prob> Ztautau_prob) {
                 return 2;
-            } else if (Zqq_prob > Ztautau_prob) {
+            } else if (Zuu_prob > Zdd_prob > Ztautau_prob) {
                 return 3;
-            } else {
+            } else if (Zdd_prob > Ztautau_prob) {
                 return 4;
+            } else {
+                return 5;
             } """)
     
     df_bb = df_quarks.Filter("best_tag == 0 && Zbb_prob > 2*0.5")
     df_cc = df_quarks.Filter("best_tag == 1 && Zcc_prob > 1.6")
     df_ss = df_quarks.Filter("best_tag == 2 && Zss_prob > 1.2")
-    df_qq = df_quarks.Filter("best_tag == 3 && Zqq_prob > 1.1")
-    df_qq = df_quarks.Filter("best_tag == 4 && Ztautau_prob > 2*0.5")
+    df_uu = df_quarks.Filter("best_tag == 3 && Zuu_prob > 1.1")
+    df_dd = df_quarks.Filter("best_tag == 3 && Zdd_prob > 1.1")
+    df_tautau = df_quarks.Filter("best_tag == 4 && Ztautau_prob > 2*0.5")
     
     results.append(df_bb.Histo1D(("cutFlow_bb", "", *bins_count), "cut5"))
     results.append(df_cc.Histo1D(("cutFlow_cc", "", *bins_count), "cut5"))
     results.append(df_ss.Histo1D(("cutFlow_ss", "", *bins_count), "cut5"))
-    results.append(df_qq.Histo1D(("cutFlow_qq", "", *bins_count), "cut5"))
-    results.append(df_qq.Histo1D(("cutFlow_tautau", "", *bins_count), "cut5"))
+    results.append(df_uu.Histo1D(("cutFlow_uu", "", *bins_count), "cut5"))
+    results.append(df_dd.Histo1D(("cutFlow_dd", "", *bins_count), "cut5"))
+    results.append(df_tautau.Histo1D(("cutFlow_tautau", "", *bins_count), "cut5"))
     
     
     # make final mass and momentum histograms
-    for q, df in [("bb", df_bb), ("cc", df_cc), ("ss", df_ss), ("qq", df_qq),("tautau", df_qq)]:
+    for q, df in [("bb", df_bb), ("cc", df_cc), ("ss", df_ss), ("qq", df_uu),("qq", df_dd),("tautau", df_tautau)]:
         results.append(df.Histo1D((f"z{q}_z_m", "", *bins_m), "z_dijet_m"))
         results.append(df.Histo1D((f"z{q}_h_m", "", *bins_m), "h_dijet_m"))
         results.append(df.Histo1D((f"z{q}_z_p", "", *bins_m), "z_dijet_p"))
