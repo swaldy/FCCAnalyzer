@@ -148,7 +148,7 @@ def build_graph(df, dataset):
     #select_ee   = "muons_no == 0 && electrons_no == 2 && missingEnergy < 30"
     #select_nunu = "muons_no == 0 && electrons_no == 0 && missingEnergy > 102 && missingEnergy < 110"
     select_qq   = "muons_no == 0 && electrons_no == 0 && missingEnergy < 35"
-    select_tautau =  "muons_no == 0 && electrons_no == 0 && missingEnergy > 20 && missingEnergy < 90"
+    select_tautau =  "muons_no == 0 && electrons_no == 0 && missingEnergy > 30 && missingEnergy < 70"
     
     #df_mumu   = df.Filter(select_mumu)
     #df_ee     = df.Filter(select_ee)
@@ -164,7 +164,7 @@ def build_graph(df, dataset):
     results.append(df_quarks.Histo1D(("cutFlow_ss", "", *bins_count), "cut1"))
     results.append(df_quarks.Histo1D(("cutFlow_uu", "", *bins_count), "cut1"))
     results.append(df_quarks.Histo1D(("cutFlow_dd", "", *bins_count), "cut1"))
-    results.append(df_tau.Histo1D(("cutFlow_tautau", "", *bins_count), "cut1")
+    results.append(df_tau.Histo1D(("cutFlow_tautau", "", *bins_count), "cut1"))
     
     #########
     ### CUT 2: Define 4 jets
